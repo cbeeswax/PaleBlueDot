@@ -1,0 +1,71 @@
+{
+  "id": "voyager-1",
+  "name": "Voyager 1",
+  "category": "deep-space",
+  "agency": "NASA",
+  "launchDate": "1977-09-05",
+  "summary": "A spacecraft that explored Jupiter and Saturn, then became the first human-made object to enter interstellar space.",
+  "status": {
+    "label": "Mission status needs review before publication",
+    "lastVerified": "2025-01-01",
+    "sourceIds": ["nasa-voyager"]
+  },
+  "sections": [
+    { "id": "meet", "title": "Meet Voyager 1", "text": "Voyager 1 is a robotic explorer. It carries cameras, science tools, a radio, and a Golden Record.", "sourceIds": ["nasa-voyager"] },
+    { "id": "purpose", "title": "Why did NASA send Voyager?", "text": "Voyager 1 was sent to explore giant planets and their moons. Its discoveries helped people learn more about our solar system.", "sourceIds": ["nasa-voyager"] },
+    { "id": "parts", "title": "How does it travel and talk?", "text": "A big dish antenna sends radio signals. A long boom holds science tools away from the spacecraft. Radioisotope power sources make electricity far from the Sun.", "sourceIds": ["nasa-voyager", "nasa-voyager-spacecraft"] },
+    { "id": "legacy", "title": "A journey beyond the Sun's bubble", "text": "In 2012, NASA determined Voyager 1 had entered interstellar space, the space between stars. It keeps teaching us about the edge of our solar system.", "sourceIds": ["nasa-voyager"] },
+    { "id": "golden-record", "title": "A Golden Message from Earth", "text": "Voyager 1 carries a Golden Record with pictures, music, greetings, and natural sounds from Earth.", "sourceIds": ["nasa-golden-record"] }
+  ],
+  "timeline": [
+    { "id": "launch", "date": "1977-09-05", "title": "Voyager 1 launches", "description": "Voyager 1 begins its trip from Earth.", "sourceIds": ["nasa-voyager"] },
+    { "id": "jupiter", "date": "1979", "title": "Voyager 1 explores Jupiter", "description": "It studies Jupiter and its moons, including active volcanoes on Io.", "sourceIds": ["nasa-voyager"] },
+    { "id": "saturn", "date": "1980", "title": "Voyager 1 explores Saturn", "description": "It sends observations of Saturn, its rings, and the moon Titan.", "sourceIds": ["nasa-voyager"] },
+    { "id": "pale-blue-dot", "date": "1990-02-14", "title": "The Pale Blue Dot", "description": "Voyager 1 takes the images for a family portrait of the solar system, including tiny Earth.", "sourceIds": ["nasa-pale-blue-dot"] },
+    { "id": "cameras", "date": "1990", "title": "Cameras rest", "description": "The cameras are turned off to save resources for the long journey.", "sourceIds": ["nasa-voyager"] },
+    { "id": "interstellar", "date": "2012", "title": "Interstellar space", "description": "NASA determines that Voyager 1 enters the space between stars.", "sourceIds": ["nasa-voyager"] }
+  ],
+  "facts": [
+    { "id": "launch", "title": "Launched in 1977", "text": "Voyager 1 began its journey on September 5, 1977.", "sourceIds": ["nasa-voyager"] },
+    { "id": "planets", "title": "A giant-planet explorer", "text": "Voyager 1 explored Jupiter and Saturn.", "sourceIds": ["nasa-voyager"] },
+    { "id": "record", "title": "A hello from Earth", "text": "It carries a Golden Record made to share a little about Earth and humanity.", "sourceIds": ["nasa-golden-record"] },
+    { "id": "pale-blue-dot", "title": "Tiny Earth", "text": "Its Pale Blue Dot image shows Earth as a very small point of light.", "sourceIds": ["nasa-pale-blue-dot"] }
+  ],
+  "activities": [
+    { "id": "meet-voyager", "type": "multiple-choice", "title": "Meet Voyager 1", "description": "Find out what kind of explorer Voyager is.", "objective": "Know that Voyager 1 is a spacecraft.", "question": "What is Voyager 1?", "answers": ["A robot spacecraft", "A new planet", "A person in a rocket"], "correctAnswer": "A robot spacecraft", "hint": "It travels without people inside.", "explanation": "Right! Voyager 1 is a robotic spacecraft that scientists use to explore space.", "successMessage": "You met Voyager 1!", "sourceIds": ["nasa-voyager"] },
+    { "id": "meet-parts", "type": "multiple-choice", "title": "Meet the Parts", "description": "Choose the part that talks to Earth.", "objective": "Recognize the spacecraft's antenna.", "question": "Which part sends radio messages to Earth?", "answers": ["The big dish antenna", "A window", "A parachute"], "correctAnswer": "The big dish antenna", "hint": "It is shaped a little like a giant bowl.", "explanation": "Yes! The large dish antenna points toward Earth to send and receive radio signals.", "successMessage": "Signal found!", "sourceIds": ["nasa-voyager-spacecraft"] },
+    { "id": "blast-off", "type": "ordering", "title": "Blast Off", "description": "Put the first part of Voyager's journey in order.", "objective": "Understand that Voyager launched before visiting planets.", "question": "What happened first?", "answers": ["Voyager 1 launches from Earth", "Voyager 1 visits Jupiter", "Voyager 1 enters interstellar space"], "correctAnswer": "Voyager 1 launches from Earth", "hint": "A spacecraft has to leave Earth before it can visit another planet.", "explanation": "Correct! Voyager 1 launched in 1977, before reaching Jupiter and later interstellar space.", "successMessage": "Great timeline thinking!", "sourceIds": ["nasa-voyager"] },
+    { "id": "where-did-it-go", "type": "multiple-choice", "title": "Where Did It Go?", "description": "Choose a giant planet Voyager 1 explored.", "objective": "Identify Jupiter as part of Voyager 1's journey.", "question": "Which planet did Voyager 1 explore?", "answers": ["Jupiter", "Earth", "Mercury"], "correctAnswer": "Jupiter", "hint": "It is the largest planet in our solar system.", "explanation": "Exactly! Voyager 1 flew past Jupiter in 1979 and learned about its moons.", "successMessage": "Planet detective complete!", "sourceIds": ["nasa-voyager"] },
+    { "id": "golden-message", "type": "multiple-choice", "title": "A Golden Message", "description": "Discover what Voyager carries from Earth.", "objective": "Know the purpose of the Golden Record.", "question": "What is on Voyager's Golden Record?", "answers": ["Sounds, music, pictures, and greetings", "A map to a treasure chest", "A video game"], "correctAnswer": "Sounds, music, pictures, and greetings", "hint": "It is a message that shares things from Earth.", "explanation": "Yes! The Golden Record carries a collection of sounds, images, music, and greetings from Earth.", "successMessage": "Message packed for space!", "sourceIds": ["nasa-golden-record"] }
+  ],
+  "images": [
+    { "id": "spacecraft", "src": "https://images-assets.nasa.gov/image/PIA14111/PIA14111~small.jpg", "alt": "NASA artist concept of a Voyager spacecraft flying through space", "caption": "An artist's view of a Voyager spacecraft on its space journey.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-voyager" },
+    { "id": "flight-spacecraft", "src": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia04/pia04495/PIA04495.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg", "alt": "NASA artist concept of a Voyager spacecraft with its antenna pointing toward Earth", "caption": "NASA artist concept of Voyager with its antenna pointing toward Earth.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-voyager" },
+    { "id": "spacecraft-photo", "src": "https://images-assets.nasa.gov/image/PIA21733/PIA21733~medium.jpg", "alt": "A Voyager spacecraft during NASA testing with its science instruments visible", "caption": "A real Voyager spacecraft during testing before its mission.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-voyager" },
+    { "id": "instruments", "src": "https://images-assets.nasa.gov/image/PIA22915/PIA22915~small.jpg", "alt": "NASA diagram showing Voyager spacecraft instruments", "caption": "NASA diagram of Voyager's science instruments and antennas.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-voyager" },
+    { "id": "particle-instrument", "src": "https://images-assets.nasa.gov/image/PIA16487/PIA16487~small.jpg", "alt": "Voyager low-energy charged particle instrument before installation", "caption": "One of Voyager's science instruments before it was installed.", "credit": "NASA/JPL-Caltech/JHUAPL", "sourceId": "nasa-voyager" },
+    { "id": "science-boom", "src": "https://images-assets.nasa.gov/image/PIA16484/PIA16484~medium.jpg", "alt": "NASA graphic showing the location of a Voyager science instrument on its boom", "caption": "NASA graphic showing a Voyager science instrument and its boom location.", "credit": "NASA/JPL-Caltech/JHUAPL", "sourceId": "nasa-voyager" },
+    { "id": "launch", "src": "https://images-assets.nasa.gov/image/PIA17464/PIA17464~medium.jpg", "alt": "Voyager 1 launching from Cape Canaveral in 1977", "caption": "Voyager 1 lifts off on September 5, 1977.", "credit": "NASA/KSC", "sourceId": "nasa-voyager" },
+    { "id": "jupiter", "src": "https://images-assets.nasa.gov/image/ARC-1979-AC79-7009/ARC-1979-AC79-7009~medium.jpg", "alt": "Jupiter as seen by Voyager 1", "caption": "Voyager 1 made this view of giant Jupiter.", "credit": "NASA/JPL", "sourceId": "nasa-voyager" },
+    { "id": "jupiter-clouds", "src": "https://images-assets.nasa.gov/image/PIA01384/PIA01384~medium.jpg", "alt": "Color image of Jupiter's Great Red Spot and swirled clouds from Voyager 1", "caption": "Voyager 1's color view of Jupiter's Great Red Spot and swirling clouds.", "credit": "NASA/JPL", "sourceId": "nasa-voyager" },
+    { "id": "io", "src": "https://images-assets.nasa.gov/image/ARC-1979-A79-7116/ARC-1979-A79-7116~medium.jpg", "alt": "A volcanic eruption plume on Jupiter's moon Io", "caption": "Voyager 1 saw an eruption on Io, a moon of Jupiter.", "credit": "NASA/JPL", "sourceId": "nasa-voyager" },
+    { "id": "saturn", "src": "https://images-assets.nasa.gov/image/PIA00024/PIA00024~small.jpg", "alt": "Saturn with the moons Tethys and Dione as photographed by Voyager 1", "caption": "Voyager 1 photographed Saturn with two of its moons.", "credit": "NASA/JPL", "sourceId": "nasa-voyager" },
+    { "id": "saturn-rings", "src": "https://images-assets.nasa.gov/image/PIA01374/PIA01374~thumb.jpg", "alt": "Saturn and the shadow of its rings photographed by Voyager 1", "caption": "Voyager 1 revealed detail in Saturn's rings.", "credit": "NASA/JPL", "sourceId": "nasa-voyager" },
+    { "id": "golden-record", "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/The_Sounds_of_Earth_Record_Cover_-_GPN-2000-001978.jpg/500px-The_Sounds_of_Earth_Record_Cover_-_GPN-2000-001978.jpg", "alt": "The Voyager Golden Record cover with diagrams explaining how to play the record", "caption": "The original Golden Record cover has picture instructions for a possible finder.", "credit": "NASA / Wikimedia Commons", "sourceId": "nasa-golden-contents" },
+    { "id": "golden-cover-explanation", "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Voyager_Golden_Record_Cover_Explanation.svg", "alt": "Annotated explanation of the Voyager Golden Record cover diagram", "caption": "A guide to the science-and-picture symbols engraved on the Golden Record cover.", "credit": "Wikimedia Commons / NASA", "sourceId": "nasa-golden-contents" },
+    { "id": "golden-record-image-collage", "src": "/images/golden-record-images-collage.png", "alt": "Collage of images selected for the Voyager Golden Record", "caption": "A visual collection of images chosen to help tell the story of Earth.", "credit": "User-provided reference image", "sourceId": "nasa-golden-contents" },
+    { "id": "family-portrait", "src": "https://images-assets.nasa.gov/image/PIA23681/PIA23681~medium.jpg", "alt": "NASA illustration of Voyager 1's view for its Solar System family portrait", "caption": "This NASA illustration shows Voyager's view when it took its Solar System family portrait.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-pale-blue-dot" },
+    { "id": "family-portrait-photo", "src": "https://images-assets.nasa.gov/image/PIA00450/PIA00450~medium.jpg", "alt": "Voyager 1 Solar System family portrait showing the distant planets as tiny points of light", "caption": "Voyager 1's Solar System family portrait shows our planetary neighborhood from far away.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-pale-blue-dot" },
+    { "id": "pale-blue-dot", "src": "https://images-assets.nasa.gov/image/PIA23645/PIA23645~medium.jpg", "alt": "The Pale Blue Dot image of Earth as a small blue speck in a sunbeam", "caption": "Earth is the tiny pale-blue speck in this view from Voyager 1.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-pale-blue-dot" },
+    { "id": "distance-map", "src": "https://images-assets.nasa.gov/image/PIA17048/PIA17048~small.jpg", "alt": "NASA artist concept showing Voyager 1 beyond the Sun's protective bubble", "caption": "NASA's artist concept shows Voyager 1 beyond the Sun's protective bubble.", "credit": "NASA/JPL-Caltech", "sourceId": "nasa-voyager" },
+    { "id": "interstellar", "src": "https://images-assets.nasa.gov/image/PIA16483/PIA16483~small.jpg", "alt": "NASA artist concept of Voyager 1 traveling through space near the edge of the solar system", "caption": "An artist's idea of Voyager 1 near interstellar space.", "credit": "NASA/JPL-Caltech/JHUAPL", "sourceId": "nasa-voyager" }
+  ],
+  "sources": [
+    { "id": "nasa-voyager", "title": "Voyager Mission Overview", "publisher": "NASA", "url": "https://science.nasa.gov/mission/voyager/", "accessedDate": "2026-10-11" },
+    { "id": "nasa-voyager-spacecraft", "title": "Voyager Spacecraft", "publisher": "NASA Jet Propulsion Laboratory", "url": "https://voyager.jpl.nasa.gov/mission/spacecraft/", "accessedDate": "2026-10-11" },
+    { "id": "nasa-golden-record", "title": "The Golden Record", "publisher": "NASA Jet Propulsion Laboratory", "url": "https://voyager.jpl.nasa.gov/golden-record/", "accessedDate": "2026-10-11" },
+    { "id": "nasa-golden-contents", "title": "What are the contents of the Golden Record?", "publisher": "NASA", "url": "https://science.nasa.gov/mission/voyager/golden-record-contents/", "accessedDate": "2026-10-12" },
+    { "id": "nasa-pale-blue-dot", "title": "Pale Blue Dot", "publisher": "NASA Jet Propulsion Laboratory", "url": "https://science.nasa.gov/resource/voyager-1s-pale-blue-dot/", "accessedDate": "2026-10-11" }
+  ],
+  "lastUpdated": "2026-10-11"
+}
