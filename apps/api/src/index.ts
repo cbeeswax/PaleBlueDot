@@ -83,4 +83,4 @@ app.use((error: unknown, _request: Request, response: Response, _next: NextFunct
   response.status(500).json({ error: "The service is temporarily unavailable." });
 });
 
-app.listen(port, () => console.info(JSON.stringify({ level: "info", message: "BeyondSignal API started", port })));
+app.listen(port, () => console.info(JSON.stringify({ level: "info", message: "Pale Blue Dot API started", port })));

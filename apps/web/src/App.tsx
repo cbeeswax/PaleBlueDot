@@ -9,8 +9,8 @@ type Mission = {
   facts: { id: string; title: string; text: string }[]; activities: Activity[]; images: MissionImage[]; sources: Source[];
 };
 
-const progressKey = "beyond-signal:completed-activities";
-const sessionKey = "beyond-signal:session-id";
+const progressKey = "pale-blue-dot:completed-activities";
+const sessionKey = "pale-blue-dot:session-id";
 const basePath = "/missions/voyager-1";
 const route = (page = "") => `${basePath}${page ? `/${page}` : ""}`;
 
@@ -45,7 +45,7 @@ function ReadAloud({ text }: { text: string }) {
 
 function Header({ completed }: { completed: number }) {
   return <header className="site-header">
-    <a className="brand" href="/"><span aria-hidden="true">✦</span> BeyondSignal</a>
+    <a className="brand" href="/"><span aria-hidden="true">✦</span> Pale Blue Dot</a>
     <nav aria-label="Voyager 1 sections">
       <a href={route()}>Voyager 1</a><a href={route("play")}>Play</a><a href={route("take-home")}>My card</a>
     </nav>
@@ -55,7 +55,7 @@ function Header({ completed }: { completed: number }) {
 
 function PageShell({ mission, children }: { mission: Mission; children: ReactNode }) {
   const completed = JSON.parse(localStorage.getItem(progressKey) ?? "[]") as string[];
-  return <><Header completed={completed.length} /><main className="page kid-page">{children}<footer>BeyondSignal is an independent educational project. NASA and JPL image credits appear with each image.</footer></main></>;
+  return <><Header completed={completed.length} /><main className="page kid-page">{children}<footer>Pale Blue Dot is an independent educational project. NASA and JPL image credits appear with each image.</footer></main></>;
 }
 
 function image(mission: Mission, id: string) {
@@ -75,7 +75,7 @@ function HomePage({ mission }: { mission: Mission }) {
       <div><p className="eyebrow">FEATURED MISSION</p><h2>Voyager 1</h2><p>{mission.summary}</p><a href={route()}>Explore the mission →</a></div>
     </section>
     <section className="home-promises"><article><span>🪐</span><h2>See amazing worlds</h2><p>Explore real NASA pictures of Jupiter, Saturn, moons, rings, and deep space.</p></article><article><span>🎮</span><h2>Play and learn</h2><p>Build Voyager, send a pretend radio signal, and solve space challenges.</p></article></section>
-    <footer>BeyondSignal is an independent educational project and is not affiliated with NASA. <a href="/privacy">Privacy</a></footer>
+    <footer>Pale Blue Dot is an independent educational project and is not affiliated with NASA. <a href="/privacy">Privacy</a></footer>
   </main>;
 }
 
@@ -345,9 +345,9 @@ function MissionAcademy({ mission }: { mission: Mission }) {
     const nextScore = score + (answer === current.answer ? 1 : 0);
     if (index === questions.length - 1) {
       if (nextScore >= 4) {
-        const earned = new Set<string>(JSON.parse(localStorage.getItem("beyond-signal:earned-badges") ?? "[]") as string[]);
+        const earned = new Set<string>(JSON.parse(localStorage.getItem("pale-blue-dot:earned-badges") ?? "[]") as string[]);
         earned.add(level);
-        localStorage.setItem("beyond-signal:earned-badges", JSON.stringify([...earned]));
+        localStorage.setItem("pale-blue-dot:earned-badges", JSON.stringify([...earned]));
       }
       setScore(nextScore); setFinished(true); return;
     }
@@ -473,14 +473,14 @@ const messageEnds = ["can travel farther than you think.", "make the universe fe
 const personalizedMessages = (Object.entries(interests) as [Interest, typeof interests[Interest]][]).flatMap(([interest, details]) => messageStarts.flatMap((start) => messageEnds.map((end, index) => ({ interest, text: `${start} makes you a wonderful ${details.subject}. Keep exploring ${details.discoveries[index % details.discoveries.length]}—${end}` }))));
 
 function TakeHomePage({ mission }: { mission: Mission }) {
-  const [name, setName] = useState(() => localStorage.getItem("beyond-signal:card-name") ?? "");
+  const [name, setName] = useState(() => localStorage.getItem("pale-blue-dot:card-name") ?? "");
   const [interest, setInterest] = useState<Interest>("planets");
   const [message, setMessage] = useState(() => personalizedMessages[0].text);
   const [cardStatus, setCardStatus] = useState<"editing" | "printing" | "ready">("editing");
   const saveName = (value: string) => {
     setName(value);
     setCardStatus("editing");
-    localStorage.setItem("beyond-signal:card-name", value);
+    localStorage.setItem("pale-blue-dot:card-name", value);
   };
   const chooseInterest = (next: Interest) => {
     setInterest(next);
@@ -508,7 +508,7 @@ function TakeHomePage({ mission }: { mission: Mission }) {
 
 function PrivacyPage({ mission }: { mission: Mission }) {
   return <PageShell mission={mission}>
-    <section className="story-heading"><p className="eyebrow">PRIVACY NOTICE</p><h1>Our promise to explorers</h1><p>BeyondSignal records anonymous page views and activity starts or completions to learn which parts of the archive are useful. We do not store names, raw IP addresses, precise locations, passwords, or browser fingerprints.</p><p>This first release has no public guestbook. Analytics records are kept for the period set by the project administrator.</p></section>
+    <section className="story-heading"><p className="eyebrow">PRIVACY NOTICE</p><h1>Our promise to explorers</h1><p>Pale Blue Dot records anonymous page views and activity starts or completions to learn which parts of the archive are useful. We do not store names, raw IP addresses, precise locations, passwords, or browser fingerprints.</p><p>This first release has no public guestbook. Analytics records are kept for the period set by the project administrator.</p></section>
   </PageShell>;
 }
 
@@ -523,7 +523,7 @@ function App() {
       setMission(await response.json() as Mission);
     }).catch(() => setError("Voyager 1 is unavailable right now. Please try again soon."));
   }, [path]);
-  if (error) return <main className="page"><h1>BeyondSignal</h1><p>{error}</p></main>;
+  if (error) return <main className="page"><h1>Pale Blue Dot</h1><p>{error}</p></main>;
   if (!mission) return <main className="page"><p>Loading Voyager's adventure…</p></main>;
   if (path === "/") return <HomePage mission={mission} />;
   if (path === "/privacy") return <PrivacyPage mission={mission} />;

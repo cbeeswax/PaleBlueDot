@@ -1,6 +1,6 @@
-BeyondSignal — Project Specification
+Pale Blue Dot — Project Specification
 
-Project name: BeyondSignal
+Project name: Pale Blue Dot
 
 Tagline: A Living Archive of Humanity's Space Missions
 
@@ -20,7 +20,7 @@ Architecture goal: Reusable, extensible, secure, and inexpensive to operate
 
 1\. Project Overview
 
-BeyondSignal is an interactive educational platform that preserves the stories of spacecraft, explores their scientific discoveries, and helps people understand humanity's journey into space.
+Pale Blue Dot is an interactive educational platform that preserves the stories of spacecraft, explores their scientific discoveries, and helps people understand humanity's journey into space.
 
 The first featured mission is Voyager 1, one of humanity's farthest-traveling spacecraft. Visitors will be able to explore its journey, learn about its discoveries, understand how it communicates with Earth, and discover the story of the Golden Record.
 
@@ -42,7 +42,7 @@ An optional voluntary guestbook.
 
 A reusable architecture that supports future missions.
 
-BeyondSignal must be more than a static webpage. Its content model should make it straightforward to add Voyager 2, New Horizons, Pioneer, and other missions without redesigning the application.
+Pale Blue Dot must be more than a static webpage. Its content model should make it straightforward to add Voyager 2, New Horizons, Pioneer, and other missions without redesigning the application.
 
 1.1 Project goals
 
@@ -84,7 +84,7 @@ Claiming that Voyager 1 is abandoned or no longer communicating when that is not
 
 Product name
 
-BeyondSignal
+Pale Blue Dot
 
 Primary tagline
 
@@ -184,7 +184,7 @@ Suggest future missions or learning activities.
 
 Core visitor journey
 
-A visitor opens BeyondSignal.
+A visitor opens Pale Blue Dot.
 
 The homepage introduces the platform.
 
@@ -208,7 +208,7 @@ Administrators can view aggregate usage through a protected dashboard.
 
 The homepage must provide:
 
-BeyondSignal branding and tagline.
+Pale Blue Dot branding and tagline.
 
 A short introduction to the archive.
 
@@ -764,7 +764,7 @@ HTTPS / Existing Reverse Proxy
 
 &#x20;     v
 
-BeyondSignal Web Application
+Pale Blue Dot Web Application
 
 &#x20;     |
 
@@ -886,13 +886,13 @@ beyonds​ignal/
 
 The repository's data/ directory contains version-controlled, curated content. It must not contain production visitor analytics, guestbook submissions, secrets, or backups.
 
-Important: the directory name above is illustrative. The repository's production name should be beyonds​ignal without any personal name; remove the invisible formatting character if copying the example and use the normal spelling beyonds​ignal as beyonds​ignal only if your editor preserves it correctly. Prefer the simple repository name beyond-signal to avoid this issue.
+Important: the directory name above is illustrative. The repository's production name should be beyonds​ignal without any personal name; remove the invisible formatting character if copying the example and use the normal spelling beyonds​ignal as beyonds​ignal only if your editor preserves it correctly. Prefer the simple repository name pale-blue-dot to avoid this issue.
 
 7.5 Persistent server-side storage
 
 Use a directory outside the public web root and outside the application release directory, for example:
 
-/var/lib/beyond-signal/
+/var/lib/pale-blue-dot/
 
 ├── analytics/
 
@@ -1612,7 +1612,7 @@ How radio communication works.
 
 Why communication takes so long.
 
-A QR code linking to the BeyondSignal Voyager 1 experience.
+A QR code linking to the Pale Blue Dot Voyager 1 experience.
 
 A flat printed illustration or simple paper-and-foil model is sufficient. An elaborate 3D model is not a requirement.
 
@@ -1772,7 +1772,7 @@ Exit criteria: the public site is stable, the QR code works, and the demonstrati
 
 The first release is complete when all of the following are true:
 
-BeyondSignal has a responsive public homepage.
+Pale Blue Dot has a responsive public homepage.
 
 Voyager 1 has a sourced mission page.
 
@@ -1876,7 +1876,7 @@ Preserve the educational purpose. The project should help people understand spac
 
 Use the following prompt when beginning implementation:
 
-You are a senior full-stack engineer implementing BeyondSignal, a reusable educational space-mission archive.
+You are a senior full-stack engineer implementing Pale Blue Dot, a reusable educational space-mission archive.
 
 Read PROJECT\_SPEC.md, README.md, and the architecture documents before changing code.
 

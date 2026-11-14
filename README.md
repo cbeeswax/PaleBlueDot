@@ -1,11 +1,13 @@
-# Voyager 1 — Daibik's Space App
+# Pale Blue Dot
 
-> **BeyondSignal** — a living, independent archive of humanity's space missions, starting with **Voyager 1**.
+> *Voyager 1 — Daibik's space app for the NASA Space Apps Challenge.*
+>
+> **Pale Blue Dot** — a living, independent archive of humanity's space missions, starting with **Voyager 1**.
 > Built to help children (ages 6–8), families, and educators explore the spacecraft's journey, its discoveries,
 > how it still whispers to Earth from interstellar space, and the story of the Golden Record.
 
 <p>
-  <img alt="CI" src="https://github.com/cbeeswax/Voyager1-Daibik-Space-App/actions/workflows/ci.yml/badge.svg" />
+  <img alt="CI" src="https://github.com/cbeeswax/PaleBlueDot/actions/workflows/ci.yml/badge.svg" />
   <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" />
   <img alt="Node 22+" src="https://img.shields.io/badge/Node-22%2B-5FA04E.svg" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6.svg" />
@@ -17,7 +19,7 @@
 
 ## What it is
 
-BeyondSignal preserves the stories of spacecraft and makes them explorable. The first featured mission is
+Pale Blue Dot preserves the stories of spacecraft and makes them explorable. The first featured mission is
 **Voyager 1** — one of the farthest-travelling objects humans have ever made. Visitors can:
 
 - 🛰️ **Explore the mission** — a structured archive of facts, images, and sourced references.
