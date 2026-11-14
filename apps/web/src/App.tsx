@@ -100,8 +100,54 @@ function VoyagerLanding({ mission }: { mission: Mission }) {
   </PageShell>;
 }
 
+function LaunchScene({ launched }: { launched: boolean }) {
+  const stars: [number, number, number, number][] = [[80, 70, 1.6, 0], [180, 130, 1.1, 0.6], [300, 60, 1.4, 1.2], [520, 90, 1.2, 0.3], [650, 150, 1.7, 1.8], [720, 60, 1.1, 0.9], [430, 40, 1, 2.1], [610, 40, 1.3, 1.5], [130, 210, 1, 2.4], [760, 220, 1.2, 0.2]];
+  return (
+    <svg className={`launch-svg ${launched ? "launching" : ""}`} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Voyager 1 lifting off on a Titan IIIE-Centaur rocket">
+      <defs>
+        <linearGradient id="pbd-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#05081c" /><stop offset="0.5" stopColor="#0a1740" /><stop offset="1" stopColor="#20356e" /></linearGradient>
+        <radialGradient id="pbd-dawn" cx="0.5" cy="1" r="0.9"><stop offset="0" stopColor="#ff9a52" stopOpacity="0.5" /><stop offset="0.4" stopColor="#ff6b8a" stopOpacity="0.18" /><stop offset="1" stopColor="#20356e" stopOpacity="0" /></radialGradient>
+        <linearGradient id="pbd-body" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#cdd6e6" /><stop offset="0.35" stopColor="#ffffff" /><stop offset="0.65" stopColor="#eef2f8" /><stop offset="1" stopColor="#aab4c6" /></linearGradient>
+        <linearGradient id="pbd-flame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff7d6" /><stop offset="0.35" stopColor="#ffd36b" /><stop offset="0.7" stopColor="#ff8a3c" /><stop offset="1" stopColor="#ff5a2c" stopOpacity="0.4" /></linearGradient>
+        <radialGradient id="pbd-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stopColor="#ffd36b" stopOpacity="0.8" /><stop offset="1" stopColor="#ffd36b" stopOpacity="0" /></radialGradient>
+      </defs>
+      <rect width="800" height="600" fill="url(#pbd-sky)" />
+      <rect width="800" height="600" fill="url(#pbd-dawn)" />
+      <g fill="#ffffff">{stars.map(([cx, cy, r, d], i) => <circle key={i} className="pbd-star" cx={cx} cy={cy} r={r} style={{ animationDelay: `${d}s` }} />)}</g>
+      <g>
+        <rect x="300" y="250" width="14" height="300" fill="#2b3660" />
+        <g stroke="#3b487e" strokeWidth="3"><line x1="307" y1="270" x2="340" y2="300" /><line x1="307" y1="320" x2="340" y2="350" /><line x1="307" y1="370" x2="340" y2="400" /><line x1="307" y1="420" x2="340" y2="450" /><line x1="307" y1="470" x2="340" y2="500" /></g>
+      </g>
+      <g className="pbd-rocket-rise"><g className="pbd-rocket">
+        <rect x="356" y="250" width="26" height="230" rx="12" fill="url(#pbd-body)" stroke="#9aa5b8" strokeWidth="1" /><path d="M356 252 q13 -26 26 0 Z" fill="#dfe6f0" />
+        <rect x="418" y="250" width="26" height="230" rx="12" fill="url(#pbd-body)" stroke="#9aa5b8" strokeWidth="1" /><path d="M418 252 q13 -26 26 0 Z" fill="#dfe6f0" />
+        <rect x="384" y="190" width="32" height="300" rx="10" fill="url(#pbd-body)" stroke="#9aa5b8" strokeWidth="1" />
+        <path d="M384 190 q16 -64 32 0 Z" fill="#eef2f8" stroke="#c3ccda" strokeWidth="1" />
+        <rect x="384" y="300" width="32" height="7" fill="#c4ccda" /><rect x="384" y="360" width="32" height="7" fill="#c4ccda" />
+        <text x="400" y="250" fontSize="9" fill="#2a3566" textAnchor="middle" transform="rotate(90 400 250)" fontWeight="700">U S A</text>
+        <circle cx="400" cy="225" r="5.5" fill="#1d4ed8" />
+        <rect x="388" y="488" width="24" height="10" rx="3" fill="#8793a8" /><rect x="358" y="478" width="22" height="8" rx="3" fill="#8793a8" /><rect x="420" y="478" width="22" height="8" rx="3" fill="#8793a8" />
+      </g></g>
+      <ellipse className="pbd-glow" cx="400" cy="500" rx="120" ry="60" fill="url(#pbd-glow)" />
+      <g className="pbd-flames">
+        <path className="pbd-flame" d="M392 496 q8 70 8 96 q0 -26 8 -96 q-8 20 -16 0 Z" fill="url(#pbd-flame)" />
+        <path className="pbd-flame" d="M360 484 q6 50 6 70 q0 -20 6 -70 q-6 14 -12 0 Z" fill="url(#pbd-flame)" style={{ animationDelay: "0.07s" }} />
+        <path className="pbd-flame" d="M422 484 q6 50 6 70 q0 -20 6 -70 q-6 14 -12 0 Z" fill="url(#pbd-flame)" style={{ animationDelay: "0.11s" }} />
+        <path className="pbd-flame" d="M396 500 q4 34 4 48 q0 -14 4 -48 q-4 10 -8 0 Z" fill="#fff7d6" style={{ animationDelay: "0.04s" }} />
+      </g>
+      <g className="pbd-smoke-group">
+        <ellipse className="pbd-smoke" cx="330" cy="540" rx="60" ry="34" fill="#d8dee8" />
+        <ellipse className="pbd-smoke" cx="470" cy="545" rx="66" ry="36" fill="#c9d0dc" style={{ animationDelay: "0.5s" }} />
+        <ellipse className="pbd-smoke" cx="400" cy="560" rx="90" ry="40" fill="#e6eaf1" style={{ animationDelay: "1s" }} />
+        <ellipse className="pbd-smoke" cx="270" cy="560" rx="54" ry="30" fill="#cdd4df" style={{ animationDelay: "1.5s" }} />
+        <ellipse className="pbd-smoke" cx="540" cy="560" rx="58" ry="32" fill="#d2d9e4" style={{ animationDelay: "0.8s" }} />
+      </g>
+      <rect x="0" y="560" width="800" height="40" fill="#121a38" />
+    </svg>
+  );
+}
+
 function JourneyPage({ mission }: { mission: Mission }) {
-  const launch = image(mission, "launch");
   const [countdown, setCountdown] = useState<5 | 4 | 3 | 2 | 1 | 0 | null>(null);
   const launchDate = new Date(`${mission.launchDate}T00:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   const playLaunchSound = (kind: "countdown" | "liftoff") => {
@@ -167,7 +213,7 @@ function JourneyPage({ mission }: { mission: Mission }) {
   };
   return <PageShell mission={mission}>
     <section className="story-heading"><p className="eyebrow">CHAPTER 1 · BLAST OFF</p><h1>Countdown to Voyager's launch!</h1><p>On <b>{launchDate}</b>, Voyager 1 lifted off from Earth to begin its adventure.</p><ReadAloud text={`Voyager 1 launched on ${launchDate}. Count down with the rocket: five, four, three, two, one, blast off!`} /></section>
-    <section className={`launch-simulation ${countdown === 0 ? "lifted-off" : ""}`}><ImagePanel image={launch} /><span className="launch-rocket" aria-hidden="true"><img src={launch.src} alt="" /><i /></span><div className="countdown-panel" aria-live="assertive">{countdown === null && <><p className="eyebrow">READY AT THE LAUNCH PAD</p><h2>Press the button to start the countdown.</h2><button className="primary-button" onClick={beginCountdown}>Start countdown 🚀</button></>}{countdown !== null && countdown > 0 && <><p className="eyebrow">GET READY!</p><strong>{countdown}</strong><p>Voyager is about to lift off!</p></>}{countdown === 0 && <><p className="eyebrow">SEPTEMBER 5, 1977</p><strong>BLAST OFF!</strong><p>Voyager 1 is on its way to explore the giant planets.</p><button className="hint-button" onClick={beginCountdown}>Watch the launch again</button></>}</div></section>
+    <section className="launch-stage"><LaunchScene launched={countdown === 0} /><div className="countdown-panel" aria-live="assertive">{countdown === null && <><p className="eyebrow">READY AT THE LAUNCH PAD</p><h2>Press the button to start the countdown.</h2><button className="primary-button" onClick={beginCountdown}>Start countdown 🚀</button></>}{countdown !== null && countdown > 0 && <><p className="eyebrow">GET READY!</p><strong>{countdown}</strong><p>Voyager is about to lift off!</p></>}{countdown === 0 && <><p className="eyebrow">SEPTEMBER 5, 1977</p><strong>BLAST OFF!</strong><p>Voyager 1 is on its way to explore the giant planets.</p><button className="hint-button" onClick={beginCountdown}>Watch the launch again</button></>}</div></section>
     <a className="next-button" href={route("discoveries")}>Next: Jupiter worlds 🪐</a>
   </PageShell>;
 }
