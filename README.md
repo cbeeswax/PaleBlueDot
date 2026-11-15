@@ -131,8 +131,9 @@ backups before the first release. Health check: `GET /api/v1/health`.
 
 ## Credits
 
-Created by **Daibik**. Mission facts and media are drawn from public sources (e.g. NASA/JPL) and credited within
-each record; this project is independent and not affiliated with those organisations.
+Created by **Daibik** under the active supervision of **Chandan**. Mission facts and media are drawn from public
+sources (e.g. NASA/JPL) and credited within each record; this project is independent and not affiliated with
+those organisations.
 
 ## License
 
