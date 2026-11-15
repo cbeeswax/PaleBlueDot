@@ -137,6 +137,14 @@ Created by **Daibik** under the active supervision of **Chandan**. Mission facts
 sources (e.g. NASA/JPL) and credited within each record; this project is independent and not affiliated with
 those organisations.
 
+## AI / Super Intelligence use
+
+This project was built with the help of an AI coding assistant (Claude Code). The code, the inline-SVG
+artwork, and the written content were AI-assisted and team-reviewed. **No** AI image/photo/video or audio
+*generation* was used — illustrations are hand-coded SVG, sound is procedural (Web Audio + browser speech),
+and all photographs are public-domain NASA/JPL imagery shown with credit. Full disclosure, including the
+`Co-Authored-By` commit metadata, is in [`AI-USAGE.md`](AI-USAGE.md).
+
 ## License
 
 [MIT](LICENSE).
