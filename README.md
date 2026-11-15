@@ -85,7 +85,9 @@ Have sound on — the countdown and narration use your browser's speech.
 
 ### Presentation
 
-The NASA Space Apps slide deck lives at
+The 7-slide NASA Space Apps demo deck lives at
+[`docs/PaleBlueDot-Demo.pptx`](docs/PaleBlueDot-Demo.pptx)
+(download it from the file page's **⤓** button). An earlier working deck is at
 [`docs/PaleBlueDot-SpaceApps.pptx`](docs/PaleBlueDot-SpaceApps.pptx).
 
 ## Scripts
