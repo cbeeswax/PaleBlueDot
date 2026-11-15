@@ -43,6 +43,23 @@ function ReadAloud({ text }: { text: string }) {
   }}>🔊 Read this to me</button>;
 }
 
+function Icon({ name }: { name: string }) {
+  const teal = "#9fe6e0", gold = "#ffd36b";
+  const parts: Record<string, ReactNode> = {
+    antenna: <><path d="M7 22 Q24 6 41 22" fill="none" stroke={teal} strokeWidth="3" strokeLinecap="round" /><line x1="24" y1="14" x2="27" y2="24" stroke={gold} strokeWidth="3" strokeLinecap="round" /><circle cx="27" cy="25" r="2.6" fill={gold} /><line x1="24" y1="22" x2="24" y2="40" stroke={teal} strokeWidth="3" strokeLinecap="round" /><line x1="17" y1="42" x2="31" y2="42" stroke={teal} strokeWidth="3" strokeLinecap="round" /></>,
+    camera: <><rect x="9" y="16" width="30" height="21" rx="4" fill="none" stroke={teal} strokeWidth="3" /><path d="M18 16 l3 -4 h6 l3 4" fill="none" stroke={teal} strokeWidth="3" strokeLinejoin="round" /><circle cx="24" cy="26" r="6.5" fill="none" stroke={gold} strokeWidth="3" /></>,
+    power: <path d="M27 6 L13 27 H22 L20 42 L35 20 H25 Z" fill={gold} stroke="#e9b949" strokeWidth="1.5" strokeLinejoin="round" />,
+    magnet: <><path d="M14 41 V24 a10 10 0 0 1 20 0 V41" fill="none" stroke={teal} strokeWidth="5" /><rect x="11.5" y="39" width="7" height="6" fill="#ff7a7a" /><rect x="29.5" y="39" width="7" height="6" fill="#6aa0ff" /></>,
+    particles: <><line x1="8" y1="12" x2="20" y2="24" stroke={teal} strokeWidth="3" strokeLinecap="round" /><line x1="40" y1="10" x2="28" y2="22" stroke={teal} strokeWidth="3" strokeLinecap="round" /><circle cx="24" cy="28" r="5.5" fill={gold} /><circle cx="13" cy="37" r="2.6" fill={teal} /><circle cx="36" cy="35" r="2.6" fill={teal} /></>,
+    plasma: <><circle cx="14" cy="32" r="3.2" fill={gold} /><path d="M20 24 a12 12 0 0 1 0 16" fill="none" stroke={teal} strokeWidth="3" strokeLinecap="round" /><path d="M26 20 a18 18 0 0 1 0 24" fill="none" stroke={teal} strokeWidth="3" strokeLinecap="round" /><path d="M32 16 a24 24 0 0 1 0 32" fill="none" stroke={teal} strokeWidth="3" strokeLinecap="round" /></>,
+    fly: <><ellipse cx="24" cy="15" rx="13" ry="5" fill="none" stroke={teal} strokeWidth="3" /><line x1="24" y1="15" x2="24" y2="26" stroke={teal} strokeWidth="3" /><rect x="20" y="26" width="8" height="8" rx="2" fill={teal} /><line x1="28" y1="30" x2="40" y2="26" stroke={teal} strokeWidth="2.5" strokeLinecap="round" /><line x1="20" y1="32" x2="9" y2="38" stroke={teal} strokeWidth="2.5" strokeLinecap="round" /><circle cx="40" cy="26" r="2.6" fill={gold} /></>,
+    build: <><circle cx="24" cy="24" r="8" fill="none" stroke={teal} strokeWidth="3" /><circle cx="24" cy="24" r="3" fill={gold} /><g stroke={teal} strokeWidth="3" strokeLinecap="round"><line x1="24" y1="8" x2="24" y2="13" /><line x1="24" y1="35" x2="24" y2="40" /><line x1="8" y1="24" x2="13" y2="24" /><line x1="35" y1="24" x2="40" y2="24" /><line x1="13" y1="13" x2="16" y2="16" /><line x1="32" y1="32" x2="35" y2="35" /><line x1="35" y1="13" x2="32" y2="16" /><line x1="16" y1="32" x2="13" y2="35" /></g></>,
+    record: <><circle cx="24" cy="24" r="16" fill="#f2c14e" stroke="#b8862b" strokeWidth="2" /><circle cx="24" cy="24" r="10" fill="none" stroke="#b8862b" strokeWidth="1.5" /><circle cx="24" cy="24" r="3" fill="#6d4e16" /></>,
+    academy: <><path d="M17 6 L23 22 L27 22 L21 6 Z" fill="#6aa0ff" /><path d="M31 6 L25 22 L21 22 L27 6 Z" fill="#ff8a8a" /><circle cx="24" cy="30" r="11" fill={gold} stroke="#e9b949" strokeWidth="2" /><path d="M24 24.5 l1.6 3.3 3.6 .4 -2.7 2.4 .8 3.6 -3.3 -1.9 -3.3 1.9 .8 -3.6 -2.7 -2.4 3.6 -.4 Z" fill="#7a4e12" /></>
+  };
+  return <svg className="pbd-icon" viewBox="0 0 48 48" aria-hidden="true">{parts[name]}</svg>;
+}
+
 function Header({ completed }: { completed: number }) {
   return <header className="site-header">
     <a className="brand" href="/"><span aria-hidden="true">✦</span> Pale Blue Dot</a>
@@ -255,17 +272,17 @@ function DeepSpacePage({ mission }: { mission: Mission }) {
 
 function InstrumentsPage({ mission }: { mission: Mission }) {
   const instruments = [
-    ["📡", "High-gain antenna", "The big dish sends radio messages to Earth and receives instructions from home."],
-    ["📷", "Cameras", "Voyager's cameras took the famous pictures of Jupiter, Saturn, and tiny Earth. They were turned off after the 1990 Family Portrait to save power."],
-    ["⚡", "Power source", "Radioisotope power sources make electricity from heat, so Voyager can work far beyond sunlight."],
-    ["🧲", "Magnetometer boom", "A long boom holds a magnetic-field tool away from the spacecraft, where it can listen for invisible magnetic changes in space."],
-    ["✨", "Particle and cosmic-ray tools", "These instruments count tiny energetic particles moving through space."],
-    ["📻", "Plasma-wave receiver", "This tool listens for waves in the thin, electrically charged gas between the stars."]
+    ["antenna", "High-gain antenna", "The big dish sends radio messages to Earth and receives instructions from home."],
+    ["camera", "Cameras", "Voyager's cameras took the famous pictures of Jupiter, Saturn, and tiny Earth. They were turned off after the 1990 Family Portrait to save power."],
+    ["power", "Power source", "Radioisotope power sources make electricity from heat, so Voyager can work far beyond sunlight."],
+    ["magnet", "Magnetometer boom", "A long boom holds a magnetic-field tool away from the spacecraft, where it can listen for invisible magnetic changes in space."],
+    ["particles", "Particle and cosmic-ray tools", "These instruments count tiny energetic particles moving through space."],
+    ["plasma", "Plasma-wave receiver", "This tool listens for waves in the thin, electrically charged gas between the stars."]
   ];
   return <PageShell mission={mission}>
     <section className="story-heading"><p className="eyebrow">SPACECRAFT TOOL KIT</p><h1>Meet Voyager's clever instruments</h1><p>Voyager is like a flying science lab. Different parts take pictures, make power, talk to Earth, and measure the invisible space around it.</p></section>
     <div className="instrument-gallery"><ImagePanel image={image(mission, "instruments")} /><ImagePanel image={image(mission, "particle-instrument")} /></div>
-    <section className="instrument-cards">{instruments.map(([icon, title, text]) => <article key={title}><span aria-hidden="true">{icon}</span><h2>{title}</h2><p>{text}</p></article>)}</section>
+    <section className="instrument-cards">{instruments.map(([icon, title, text]) => <article key={title}><Icon name={icon} /><h2>{title}</h2><p>{text}</p></article>)}</section>
     <a className="next-button" href={route("golden-record")}>Next: The Golden Record 💛</a>
   </PageShell>;
 }
@@ -410,11 +427,11 @@ function PlayPage({ mission }: { mission: Mission }) {
   return <PageShell mission={mission}>
     <section className="story-heading"><p className="eyebrow">MISSION CONTROL</p><h1>Play, build, and explore!</h1><p>Try a hands-on mission activity, then visit Mission Academy when you are ready to test your knowledge and earn a badge.</p></section>
     <section className="lab-grid">
-      <a href={route("signal-lab")}><span>📡</span><b>Signal lab</b><small>Send a pretend message to Voyager and get a playful reply.</small></a>
-      <a href={route("flight-simulator")}><span>🛰️</span><b>Fly with Voyager</b><small>Watch its journey from Earth to interstellar space.</small></a>
-      <a href={route("build-voyager")}><span>🛠️</span><b>Build Voyager</b><small>Choose the parts a space explorer needs.</small></a>
-      <a href={route("build-record")}><span>💿</span><b>Build a Golden Record</b><small>Pack a tiny message from Earth.</small></a>
-      <a href={route("academy")}><span>🏅</span><b>Mission Academy</b><small>Test your knowledge and earn a badge.</small></a>
+      <a href={route("signal-lab")}><Icon name="antenna" /><b>Signal lab</b><small>Send a real-distance message to Voyager and wait for its reply.</small></a>
+      <a href={route("flight-simulator")}><Icon name="fly" /><b>Fly with Voyager</b><small>Watch its journey from Earth to interstellar space.</small></a>
+      <a href={route("build-voyager")}><Icon name="build" /><b>Build Voyager</b><small>Snap together the real parts of the spacecraft.</small></a>
+      <a href={route("build-record")}><Icon name="record" /><b>Build a Golden Record</b><small>Pack a tiny message from Earth.</small></a>
+      <a href={route("academy")}><Icon name="academy" /><b>Mission Academy</b><small>Test your knowledge and earn a badge.</small></a>
     </section>
     <a className="next-button" href={route("academy")}>Open Mission Academy 🏅</a>
   </PageShell>;
