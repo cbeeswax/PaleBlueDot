@@ -40,18 +40,53 @@ Pale Blue Dot preserves the stories of spacecraft and makes them explorable. The
 | Storage | File-based (no database server) |
 | Tests | Vitest |
 
-## Quick start
+## Run it locally
 
-Requires **Node.js 22+**.
+Requires **Node.js 22+** (check with `node -v`).
+
+**1. Get the code** (skip if you already have the folder):
+
+```sh
+git clone https://github.com/cbeeswax/PaleBlueDot.git
+cd PaleBlueDot
+```
+
+**2. Install dependencies** (once, and after any pull that changes packages):
 
 ```sh
 npm install
-cp .env.example .env     # then set a strong ADMIN_TOKEN
+```
+
+**3. Start the app** (runs the web app and API together):
+
+```sh
 npm run dev
 ```
 
-- Web app → <http://localhost:5173>
-- API → <http://localhost:3000>
+Then open **<http://localhost:5173>** in your browser. The API runs in the
+background on <http://localhost:3000> — you don't open it directly. To stop
+everything, press **Ctrl + C** in the terminal.
+
+> No API keys or secrets are needed to run Pale Blue Dot. The `.env` file is
+> optional — copy `cp .env.example .env` and set an `ADMIN_TOKEN` only if you
+> want to open the protected `/admin` dashboard.
+
+### Pages worth a look
+
+Have sound on — the countdown and narration use your browser's speech.
+
+| Page | URL |
+| --- | --- |
+| Home | <http://localhost:5173/> |
+| Liftoff (press **Start countdown**) | `/missions/voyager-1/journey` |
+| Signal Lab (press **Transmit**) | `/missions/voyager-1/signal-lab` |
+| Build Voyager | `/missions/voyager-1/build-voyager` |
+| Play hub | `/missions/voyager-1/play` |
+
+### Presentation
+
+The NASA Space Apps slide deck lives at
+[`docs/PaleBlueDot-SpaceApps.pptx`](docs/PaleBlueDot-SpaceApps.pptx).
 
 ## Scripts
 
