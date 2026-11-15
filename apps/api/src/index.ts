@@ -15,7 +15,17 @@ const dataDirectory = process.env.DATA_DIR ?? "./storage";
 const adminToken = process.env.ADMIN_TOKEN;
 const webDirectory = path.resolve(process.cwd(), "dist", "web");
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "data:", "https:"],
+      "style-src": ["'self'", "'unsafe-inline'"],
+      "script-src": ["'self'"],
+      "connect-src": ["'self'"]
+    }
+  }
+}));
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN?.split(",") ?? false }));
 app.use(express.json({ limit: "8kb" }));
 
