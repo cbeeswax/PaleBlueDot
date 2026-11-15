@@ -248,7 +248,7 @@ function DeepSpacePage({ mission }: { mission: Mission }) {
     <section className="story-heading"><p className="eyebrow">CHAPTER 4</p><h1>Beyond the Sun's big bubble</h1><p>Voyager 1 passed Jupiter and Saturn, then traveled beyond the Sun's protective bubble into interstellar space—the space between stars.</p></section>
     <ImagePanel image={image(mission, "distance-map")} />
     <section className="distance-lab"><p className="eyebrow">DISTANCE EXPLORER</p><h2>Follow Voyager farther and farther</h2><p>Tap the next stop. This is a picture of a huge journey, not a map with exact distances. Voyager keeps moving, so its distance changes every day.</p><div className="distance-track">{stops.map((stop, index) => <button key={stop} className={index < step ? "reached" : ""} onClick={() => setStep(Math.max(step, index + 1))}><span>{index < step ? "✓" : index + 1}</span>{stop}</button>)}</div><p className="success">{step === 4 ? "Voyager is now in interstellar space—far beyond the giant planets!" : "Keep tapping to travel farther."}</p></section>
-    <section className="light-time"><p className="eyebrow">LIGHT-TRAVEL TIMER</p><h2>Even light needs about a day to reach Voyager</h2><div><article><span>☀️</span><b>Earth sends a radio wave</b><small>Radio waves travel at the speed of light.</small></article><i aria-hidden="true">→ → →</i><article><strong>about<br />24 hours</strong><small>One way from Earth to Voyager in late 2026.</small></article><i aria-hidden="true">→ → →</i><article><span>🛰️</span><b>Voyager receives it</b><small>A reply needs about another day to return.</small></article></div><p>That makes a simple question-and-answer trip about <b>48 hours</b>. It is like waiting two sleeps for a message to travel there and back.</p></section>
+    <section className="light-time"><p className="eyebrow">LIGHT-TRAVEL TIMER</p><h2>Even light takes almost a whole day to reach Voyager</h2><p>In late 2026 Voyager 1 is about <b>171 times farther from the Sun than Earth</b> (~25.6 billion km) — so far that it is nearly one <b>light-day</b> away.</p><div className="light-route"><span className="light-end"><em aria-hidden="true">🌍</em><b>Earth</b></span><div className="light-beam"><i aria-hidden="true" /><strong>≈ 23.9 hours</strong><small>radio waves at the speed of light, one way</small></div><span className="light-end"><em aria-hidden="true">🛰️</em><b>Voyager 1</b></span></div><p>A question and its answer make a round trip of about <b>48 hours</b> — like waiting two sleeps for a reply to travel there and back.</p></section>
     <a className="next-button" href={route("instruments")}>Next: Meet Voyager's instruments 🧰</a>
   </PageShell>;
 }
@@ -420,14 +420,50 @@ function PlayPage({ mission }: { mission: Mission }) {
   </PageShell>;
 }
 
+type LinkPhase = "ready" | "uplink" | "atVoyager" | "downlink" | "received";
+
+function DishNode({ receiving }: { receiving: boolean }) {
+  return (
+    <svg className={`dsn-earth ${receiving ? "live" : ""}`} viewBox="0 0 120 120" role="img" aria-label="Earth with a Deep Space Network dish">
+      <defs>
+        <radialGradient id="dsn-globe" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stopColor="#5fb4ff" /><stop offset="0.55" stopColor="#1b63c4" /><stop offset="1" stopColor="#0a2d66" /></radialGradient>
+      </defs>
+      <circle cx="46" cy="60" r="30" fill="url(#dsn-globe)" />
+      <path d="M30 50 q10 -6 20 0 q8 5 18 2 M26 66 q12 6 24 1 q9 -4 18 1" fill="none" stroke="#86e6a8" strokeWidth="4" strokeLinecap="round" opacity="0.8" />
+      <g className="dsn-dish">
+        <line x1="92" y1="96" x2="92" y2="70" stroke="#9fb0d0" strokeWidth="4" />
+        <ellipse cx="92" cy="58" rx="22" ry="11" fill="#e7edf7" stroke="#aab7cf" strokeWidth="2" transform="rotate(-32 92 58)" />
+        <circle cx="92" cy="58" r="3" fill="#64748b" />
+        <rect x="80" y="96" width="24" height="6" rx="2" fill="#5b6a86" />
+      </g>
+    </svg>
+  );
+}
+
+function ProbeNode({ receiving }: { receiving: boolean }) {
+  return (
+    <svg className={`dsn-probe ${receiving ? "live" : ""}`} viewBox="0 0 120 120" role="img" aria-label="Voyager 1 spacecraft">
+      <ellipse className="dsn-probe-dish" cx="60" cy="40" rx="34" ry="14" fill="#eef2f8" stroke="#aab7cf" strokeWidth="2" />
+      <line x1="60" y1="40" x2="60" y2="62" stroke="#9fb0d0" strokeWidth="3" />
+      <polygon points="50,62 70,62 66,82 54,82" fill="#c7d0e0" stroke="#90a0bd" strokeWidth="1.5" />
+      <line x1="66" y1="70" x2="110" y2="58" stroke="#8aa0c8" strokeWidth="2" />
+      <line x1="54" y1="74" x2="14" y2="92" stroke="#8aa0c8" strokeWidth="2" />
+      <circle cx="110" cy="58" r="3" fill="#ffd36b" />
+    </svg>
+  );
+}
+
 function SignalLabPage({ mission }: { mission: Mission }) {
+  const DISTANCE_AU = 171;
+  const ONE_WAY_HOURS = 23.9;
+  const LEG_MS = 5200;
   const [message, setMessage] = useState("Hello, Voyager!");
-  const [status, setStatus] = useState<"ready" | "earth" | "voyager" | "returning" | "received">("ready");
+  const [phase, setPhase] = useState<LinkPhase>("ready");
+  const [progress, setProgress] = useState(0);
   const [reply, setReply] = useState("");
   const funMessages = ["Hello, Voyager! What can you see?", "Please send a space high-five!", "Did you see Saturn's rings?", "Hello from Earth, star explorer!", "What is interstellar space like?"];
-  const voyagerReplyStarts = ["I am sending you a space high-five!", "My big dish antenna heard you clearly!", "Your words traveled a very long way through space!", "I am happy to get a hello from Earth!", "Your message reached me between the stars!", "I am still listening to the sounds of deep space!", "Your curiosity is a wonderful space tool!", "I am waving my antenna back at you!", "You are part of my Earth team!", "Your message made my long journey feel less lonely!"];
-  const voyagerReplyEnds = ["Keep looking up at the night sky!", "Saturn's rings were full of tiny icy pieces.", "Jupiter's clouds were swirly and colorful.", "Earth looks like a tiny, precious home from far away.", "I am exploring the space between stars.", "My Golden Record carries a hello from Earth.", "Every big discovery starts with a curious question.", "Radio waves can carry kind messages across space.", "I hope you keep asking brave space questions!", "Your imagination belongs on a mission to the stars!"];
-  const voyagerReplies = voyagerReplyStarts.flatMap((start) => voyagerReplyEnds.map((end) => `Hi! I have received your message. ${start} ${end}`));
+  const voyagerReplies = ["Signal received between the stars! All systems nominal. I am still listening to the hum of deep space.", "Loud and clear across 25 billion kilometres! My 22-watt whisper is heading home to your giant dish.", "Message locked. I waved my antenna back at Earth — thank you for keeping me company out here.", "Received! From where I fly, your Sun is just a bright star. Your words still reached me.", "Copy that, Earth team. My Golden Record carries your hello onward into interstellar space."];
+  const sent = phase !== "ready";
   const playSignalSound = (kind: "travel" | "voyager-received" | "earth-received") => {
     const legacyWindow = window as Window & { webkitAudioContext?: typeof AudioContext };
     const AudioContextClass = window.AudioContext ?? legacyWindow.webkitAudioContext;
@@ -453,28 +489,76 @@ function SignalLabPage({ mission }: { mission: Mission }) {
     speechSynthesis.cancel();
     speechSynthesis.speak(new SpeechSynthesisUtterance(words));
   };
-  const stages = [
-    <>1. Earth sends radio waves <small>Watch the signal begin its long journey</small></>,
-    <>2. Voyager receives the signal <small>About 24 hours have passed</small></>,
-    <>3. Voyager sends radio waves back <small>Its reply starts the journey home</small></>,
-    <>4. Earth receives a reply <small>About 48 hours for the round trip</small></>
-  ];
-  const visibleStageCount = status === "received" ? 4 : status === "returning" ? 3 : status === "voyager" ? 2 : 1;
+  useEffect(() => {
+    if (phase !== "uplink" && phase !== "downlink") return;
+    setProgress(0);
+    const start = performance.now();
+    let pingAt = 0;
+    let frame = 0;
+    const step = (now: number) => {
+      const value = Math.min(1, (now - start) / LEG_MS);
+      setProgress(value);
+      if (now - pingAt > 620) { playSignalSound("travel"); pingAt = now; }
+      if (value < 1) { frame = requestAnimationFrame(step); return; }
+      if (phase === "uplink") { playSignalSound("voyager-received"); setPhase("atVoyager"); }
+      else { playSignalSound("earth-received"); setPhase("received"); }
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [phase]);
+  useEffect(() => {
+    if (phase !== "atVoyager") return;
+    const timer = window.setTimeout(() => setPhase("downlink"), 1400);
+    return () => window.clearTimeout(timer);
+  }, [phase]);
   const send = () => {
-    const outgoing = message.trim() || "Hello, Voyager!";
-    const nextReply = voyagerReplies[Math.floor(Math.random() * voyagerReplies.length)];
-    let signalPings = window.setInterval(() => playSignalSound("travel"), 780);
-    setMessage(outgoing);
-    setReply(nextReply);
-    setStatus("earth");
+    setMessage(message.trim() || "Hello, Voyager!");
+    setReply(voyagerReplies[Math.floor(Math.random() * voyagerReplies.length)]);
     playSignalSound("travel");
-    window.setTimeout(() => { window.clearInterval(signalPings); setStatus("voyager"); playSignalSound("voyager-received"); }, 8200);
-    window.setTimeout(() => { setStatus("returning"); playSignalSound("travel"); signalPings = window.setInterval(() => playSignalSound("travel"), 780); }, 13000);
-    window.setTimeout(() => { window.clearInterval(signalPings); setStatus("received"); playSignalSound("earth-received"); }, 21000);
+    setPhase("uplink");
   };
+  const simHours = Math.round((phase === "atVoyager" || phase === "received" ? 1 : progress) * ONE_WAY_HOURS);
+  const pulseLeft = phase === "uplink" ? progress * 100 : phase === "downlink" ? (1 - progress) * 100 : phase === "atVoyager" ? 100 : phase === "received" ? 0 : -10;
+  const showingReply = phase === "downlink" || phase === "received";
+  const statusLine =
+    phase === "ready" ? "Press Transmit. Your words leave Earth as radio waves at the speed of light." :
+    phase === "uplink" ? `Uplink in flight — the signal is racing toward Voyager 1. About ${simHours} of ~24 hours gone.` :
+    phase === "atVoyager" ? "Caught by Voyager's antenna after ~24 hours! It is composing a reply." :
+    phase === "downlink" ? `Downlink in flight — Voyager's faint reply is heading home. About ${simHours} of ~24 hours gone.` :
+    `Received by NASA's 70-metre Deep Space Network dish. Round trip: about 48 hours (two sleeps) for your message and its reply.`;
   return <PageShell mission={mission}>
-    <section className="story-heading"><p className="eyebrow">PLAY LAB · SIMULATION</p><h1>Send a pretend radio signal</h1><p>Choose a fun message or write your own. You will hear Earth send it, then hear Voyager's playful reply come back.</p></section>
-    <section className="signal-lab"><label>Write a short pretend message<input maxLength={60} value={message} onChange={(event) => { setMessage(event.target.value); setStatus("ready"); }} /></label><div className="fun-message-picks">{funMessages.map((funMessage) => <button key={funMessage} onClick={() => { setMessage(funMessage); setStatus("ready"); }}>✦ {funMessage}</button>)}</div><div className={`signal-animation ${status}`}><span>🌍<b>Earth</b></span><div className="signal-space" aria-label={status === "returning" ? "Radio wave traveling from Voyager back to Earth" : "Radio wave traveling from Earth to Voyager"}><i aria-hidden="true">〰〰〰</i></div><span>🚀<b>Voyager</b></span></div><ol className="signal-steps">{stages.slice(0, visibleStageCount).map((stage, index) => <li className={index + 1 === visibleStageCount ? "active" : ""} key={index}>{stage}</li>)}</ol><div className="signal-message"><b>{status === "returning" || status === "received" ? "Voyager's reply" : "Earth's message"}</b><p>{status === "returning" || status === "received" ? reply : message}</p>{status !== "ready" && <button className="listen-button" onClick={() => speak(status === "returning" || status === "received" ? reply : message)}>🔊 Hear this message</button>}</div><p>{status === "ready" && "Ready to beam your words across our pretend space map."}{status === "earth" && "Watch the radio waves flow from Earth toward Voyager."}{status === "voyager" && "Pause and imagine it: about 24 hours have passed. Voyager has received your message!"}{status === "returning" && "Now Voyager sends a reply. Watch its radio waves flow back toward Earth."}{status === "received" && `Another 24 hours have passed. About 48 hours after sending your message, Earth receives Voyager's reply: “${reply}”`}</p><button className="primary-button" onClick={send} disabled={["earth", "voyager", "returning"].includes(status)}>{status === "received" ? "Send another signal" : "Send signal 📡"}</button><p><a href={route("play")}>← Back to Play Lab</a></p></section>
+    <section className="story-heading"><p className="eyebrow">PLAY LAB · DEEP SPACE NETWORK</p><h1>Talk to Voyager across deep space</h1><p>Voyager 1 is so far away that even light takes almost a whole day to reach it. Send a message and watch it cross the real distance — then wait for the long journey back.</p></section>
+    <section className="dsn-stats">
+      <article><b>≈ {DISTANCE_AU} AU</b><span>Distance now (~25.6 billion km) — almost one light-day</span></article>
+      <article><b>≈ {ONE_WAY_HOURS} h</b><span>One-way light time, Earth → Voyager</span></article>
+      <article><b>22 watts</b><span>Voyager's radio — fainter than a fridge bulb</span></article>
+      <article><b>160 bits/s</b><span>Data rate home, caught by a 70 m dish</span></article>
+    </section>
+    <section className="signal-lab">
+      <label>Write a short message to Voyager<input maxLength={60} value={message} onChange={(event) => { setMessage(event.target.value); setPhase("ready"); }} /></label>
+      <div className="fun-message-picks">{funMessages.map((funMessage) => <button key={funMessage} onClick={() => { setMessage(funMessage); setPhase("ready"); }}>✦ {funMessage}</button>)}</div>
+      <div className={`dsn-scene phase-${phase}`}>
+        <div className="dsn-node"><DishNode receiving={phase === "received"} /><b>Earth</b><small>DSN 70 m dish</small></div>
+        <div className="dsn-link" aria-label={phase === "downlink" ? "Radio signal traveling from Voyager back to Earth" : "Radio signal traveling from Earth to Voyager"}>
+          <div className="dsn-track"><span className="dsn-tick" style={{ left: "0%" }} /><span className="dsn-tick" style={{ left: "50%" }} /><span className="dsn-tick" style={{ left: "100%" }} /></div>
+          {sent && <span className="dsn-pulse" style={{ left: `${pulseLeft}%` }} aria-hidden="true" />}
+          <span className="dsn-scale">{DISTANCE_AU} AU of empty space</span>
+        </div>
+        <div className="dsn-node"><ProbeNode receiving={phase === "atVoyager"} /><b>Voyager 1</b><small>interstellar space</small></div>
+      </div>
+      <div className="dsn-clock" role="status">
+        <div className="dsn-clock-bar"><i style={{ width: `${(phase === "atVoyager" || phase === "received" ? 1 : phase === "ready" ? 0 : progress) * 100}%` }} /></div>
+        <span>{phase === "ready" ? "Light-time clock ready" : `≈ ${simHours} hours of travel`}</span>
+      </div>
+      <div className="signal-message">
+        <b>{showingReply ? "📡 Voyager 1 replies" : "Your message to Voyager"}</b>
+        <p>{showingReply ? reply : message}</p>
+        {sent && <button className="listen-button" onClick={() => speak(showingReply ? reply : message)}>🔊 Hear this message</button>}
+      </div>
+      <p className="dsn-status">{statusLine}</p>
+      <button className="primary-button" onClick={send} disabled={phase === "uplink" || phase === "atVoyager" || phase === "downlink"}>{phase === "received" ? "Send another signal 📡" : "Transmit to Voyager 📡"}</button>
+      <p><a href={route("play")}>← Back to Play Lab</a></p>
+    </section>
   </PageShell>;
 }
 
@@ -501,9 +585,44 @@ function BuildPage({ mission, record = false }: { mission: Mission; record?: boo
     else setFeedback(`Not quite. ${current.hint} Try rebuilding with a different choice.`);
   };
   return <PageShell mission={mission}>
-    <section className="story-heading"><p className="eyebrow">PLAY LAB · BUILD IT</p><h1>{record ? "Build a Golden Record" : "Build a real Voyager spacecraft"}</h1><p>{record ? "Choose what was really sent from Earth. Some choices are pretend extras—use the hint and rebuild if needed." : "Choose the real parts one at a time. Every correct piece lights up where it belongs on Voyager's NASA test photo."}</p></section>
-    <section className="builder">{record ? <ImagePanel image={image(mission, "golden-record")} /> : <div className="voyager-assembly"><div className="assembly-photo"><img src={image(mission, "spacecraft").src} alt={image(mission, "spacecraft").alt} />{voyagerParts.filter((part) => builtParts.includes(part.answer)).map((part) => <span className={`assembly-part ${part.id} attached`} key={part.id}>✓ {part.answer}</span>)}</div><p><b>Voyager assembly:</b> {builtParts.length} of {voyagerParts.length} parts attached</p><div className="assembly-key">{builtParts.map((part) => <span key={part}>✓ {part}</span>)}</div><small>NASA/JPL-Caltech artist's view of Voyager in space.</small></div>}<div>{finished ? <><p className="success">{record ? "Correct! The real Golden Record includes greetings in many languages, music, pictures, natural sounds, and information about Earth." : "Voyager is ready for its adventure! You attached its seven important parts to the spacecraft build map."}</p><a className="next-button" href={route("play")}>Back to Play Lab 🎮</a></> : <><p className="eyebrow">ASSEMBLY STEP {round + 1} OF {rounds.length}</p><h2>{rounds[round].prompt}</h2><div className="visual-options text-options">{rounds[round].options.map((option) => <button key={option} onClick={() => choose(option)}><span>{option}</span></button>)}</div>{feedback && <p className={feedback.startsWith("✓") ? "success" : "retry"}>{feedback}</p>}<button className="hint-button" onClick={() => setFeedback(`Hint: ${rounds[round].hint}`)}>Need a hint?</button></>}</div></section><p><a href={route("play")}>← Back to Play Lab</a></p>
+    <section className="story-heading"><p className="eyebrow">PLAY LAB · BUILD IT</p><h1>{record ? "Build a Golden Record" : "Build a real Voyager spacecraft"}</h1><p>{record ? "Choose what was really sent from Earth. Some choices are pretend extras—use the hint and rebuild if needed." : "Pick the real parts one at a time. Each correct piece snaps into place and builds your own Voyager, just like NASA's engineers did."}</p></section>
+    <section className="builder">{record ? <ImagePanel image={image(mission, "golden-record")} /> : <div className="voyager-assembly"><VoyagerAssembly built={builtParts} total={voyagerParts.length} /></div>}<div>{finished ? <><p className="success">{record ? "Correct! The real Golden Record includes greetings in many languages, music, pictures, natural sounds, and information about Earth." : "Voyager is ready for its adventure! You attached all seven key parts — the body, power, antenna, camera, instruments, boom, and Golden Record."}</p><a className="next-button" href={route("play")}>Back to Play Lab 🎮</a></> : <><p className="eyebrow">ASSEMBLY STEP {round + 1} OF {rounds.length}</p><h2>{rounds[round].prompt}</h2><div className="visual-options text-options">{rounds[round].options.map((option) => <button key={option} onClick={() => choose(option)}><span>{option}</span></button>)}</div>{feedback && <p className={feedback.startsWith("✓") ? "success" : "retry"}>{feedback}</p>}<button className="hint-button" onClick={() => setFeedback(`Hint: ${rounds[round].hint}`)}>Need a hint?</button></>}</div></section><p><a href={route("play")}>← Back to Play Lab</a></p>
   </PageShell>;
+}
+
+function VoyagerAssembly({ built, total }: { built: string[]; total: number }) {
+  const has = (answer: string) => built.includes(answer);
+  return (
+    <div className="assembly-stage">
+      <svg className="voyager-svg" viewBox="0 0 420 340" role="img" aria-label={`Voyager spacecraft being built: ${built.length} of ${total} parts attached`}>
+        <defs>
+          <linearGradient id="v-metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f2f5fb" /><stop offset="1" stopColor="#b9c4d8" /></linearGradient>
+          <radialGradient id="v-gold" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stopColor="#ffe9a8" /><stop offset="0.6" stopColor="#f2c14e" /><stop offset="1" stopColor="#b8862b" /></radialGradient>
+        </defs>
+        {/* ghost target */}
+        <g className="v-ghost">
+          <ellipse cx="210" cy="92" rx="96" ry="30" /><polygon points="178,174 242,174 262,198 262,232 242,256 178,256 158,232 158,198" />
+          <rect x="52" y="236" width="104" height="2" /><rect x="30" y="238" width="128" height="2" transform="rotate(26 158 250)" /><rect x="250" y="246" width="56" height="2" transform="rotate(34 250 246)" /><circle cx="210" cy="214" r="15" />
+        </g>
+        {/* science boom (magnetometer-style long arm) */}
+        {has("Science boom") && <g className="v-part"><line x1="158" y1="238" x2="26" y2="322" stroke="#8fa0bf" strokeWidth="3" /><circle cx="26" cy="322" r="5" fill="#8fa0bf" /><line x1="92" y1="280" x2="100" y2="270" stroke="#8fa0bf" strokeWidth="2" /></g>}
+        {/* power / RTG boom */}
+        {has("Power source") && <g className="v-part"><line x1="158" y1="226" x2="56" y2="248" stroke="#8fa0bf" strokeWidth="4" />{[0, 1, 2].map((i) => <g key={i}><rect x={48 - i * 22} y={242 + i * 5} width="20" height="28" rx="6" fill="#7f8ba3" stroke="#59627a" strokeWidth="1.5" /><rect x={48 - i * 22} y={248 + i * 5} width="20" height="4" fill="#e9a94e" opacity="0.85" /></g>)}</g>}
+        {/* camera / scan platform boom */}
+        {has("Camera") && <g className="v-part"><line x1="250" y1="244" x2="296" y2="278" stroke="#8fa0bf" strokeWidth="4" /><rect x="292" y="268" width="30" height="24" rx="4" fill="url(#v-metal)" stroke="#8aa0c8" strokeWidth="1.5" /><rect x="320" y="274" width="8" height="12" rx="2" fill="#2b3660" /><circle cx="332" cy="280" r="4" fill="#1d4ed8" /></g>}
+        {/* science instruments on the platform */}
+        {has("Science instrument") && <g className="v-part"><line x1="300" y1="268" x2="300" y2="248" stroke="#8fa0bf" strokeWidth="2" /><circle cx="300" cy="244" r="6" fill="none" stroke="#9fe6c0" strokeWidth="2" /><line x1="312" y1="270" x2="328" y2="256" stroke="#8fa0bf" strokeWidth="2" /><circle cx="330" cy="254" r="3" fill="#9fe6c0" /></g>}
+        {/* main bus / computer body */}
+        {has("Computer") && <g className="v-part"><polygon points="178,174 242,174 262,198 262,232 242,256 178,256 158,232 158,198" fill="url(#v-metal)" stroke="#8aa0c8" strokeWidth="2" /><line x1="158" y1="206" x2="262" y2="206" stroke="#aeb9cd" strokeWidth="1.5" /><line x1="158" y1="226" x2="262" y2="226" stroke="#aeb9cd" strokeWidth="1.5" /><rect x="192" y="182" width="36" height="12" rx="2" fill="#cfd8e6" /></g>}
+        {/* golden record */}
+        {has("Golden Record") && <g className="v-part"><circle cx="210" cy="214" r="15" fill="url(#v-gold)" stroke="#9a6f22" strokeWidth="1.5" /><circle cx="210" cy="214" r="9" fill="none" stroke="#9a6f22" strokeWidth="1" /><circle cx="210" cy="214" r="2.5" fill="#6d4e16" /></g>}
+        {/* high-gain dish */}
+        {has("Big dish antenna") && <g className="v-part"><line x1="178" y1="176" x2="186" y2="118" stroke="#9fb0d0" strokeWidth="2.5" /><line x1="242" y1="176" x2="234" y2="118" stroke="#9fb0d0" strokeWidth="2.5" /><ellipse cx="210" cy="92" rx="96" ry="30" fill="url(#v-metal)" stroke="#8aa0c8" strokeWidth="2" /><ellipse cx="210" cy="92" rx="74" ry="21" fill="none" stroke="#c3cee0" strokeWidth="1.5" /><line x1="210" y1="92" x2="210" y2="120" stroke="#9fb0d0" strokeWidth="2.5" /><circle cx="210" cy="92" r="4" fill="#64748b" /></g>}
+      </svg>
+      <p className="assembly-count"><b>{built.length} of {total} parts</b> attached</p>
+      <div className="assembly-key">{built.map((part) => <span key={part}>✓ {part}</span>)}</div>
+    </div>
+  );
 }
 
 const interests = {

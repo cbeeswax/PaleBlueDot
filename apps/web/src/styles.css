@@ -39,3 +39,50 @@
 @keyframes pbd-rise { 0% { transform: translateY(0); } 100% { transform: translateY(-150px); } }
 @keyframes pbd-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-.6px); } 75% { transform: translateX(.6px); } }
 @media (max-width: 760px) { .launch-stage { grid-template-columns: 1fr; } }
+
+/* ===== Deep Space Network signal lab ===== */
+.dsn-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; margin: 1.2rem 0; }
+.dsn-stats article { background: #0b1330; border: 1px solid #27356b; border-radius: 14px; padding: .8rem .9rem; text-align: center; }
+.dsn-stats article b { display: block; font-size: 1.35rem; color: #ffd36b; }
+.dsn-stats article span { display: block; font-size: .78rem; color: #aab8e6; margin-top: .25rem; line-height: 1.3; }
+.dsn-scene { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .8rem; margin: 1.2rem 0 .4rem; padding: 1.2rem 1rem; border: 1px solid #27356b; border-radius: 20px; background: radial-gradient(130% 120% at 50% 0%, #0d1b44 0%, #070a1a 70%); }
+.dsn-node { display: flex; flex-direction: column; align-items: center; gap: .15rem; width: 92px; }
+.dsn-node b { color: #eaf0ff; font-size: .95rem; }
+.dsn-node small { color: #8fa4d6; font-size: .72rem; }
+.dsn-earth, .dsn-probe { width: 84px; height: 84px; }
+.dsn-earth .dsn-dish, .dsn-probe-dish { transition: filter .3s ease; }
+.dsn-earth.live .dsn-dish, .dsn-probe.live .dsn-probe-dish { filter: drop-shadow(0 0 7px #ffd36b); }
+.dsn-link { position: relative; height: 66px; }
+.dsn-track { position: absolute; top: 50%; left: 0; right: 0; height: 0; border-top: 2px dashed #3a4c86; }
+.dsn-tick { position: absolute; top: -5px; width: 2px; height: 10px; background: #3a4c86; transform: translateX(-1px); }
+.dsn-pulse { position: absolute; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: radial-gradient(circle, #fff7d6 0%, #ffd36b 45%, rgba(255,211,107,0) 72%); box-shadow: 0 0 14px 4px rgba(255,211,107,.6); transition: left .08s linear; }
+.dsn-scale { position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); font-size: .72rem; color: #8fa4d6; white-space: nowrap; }
+.dsn-clock { display: flex; align-items: center; gap: .7rem; margin: .2rem 0 1rem; }
+.dsn-clock-bar { flex: 1; height: 9px; border-radius: 6px; background: #17224d; overflow: hidden; }
+.dsn-clock-bar i { display: block; height: 100%; background: linear-gradient(90deg, #4fd1c5, #ffd36b); transition: width .1s linear; }
+.dsn-clock span { font-size: .82rem; color: #cdd9ff; font-weight: 600; min-width: 128px; text-align: right; }
+.dsn-status { color: #c7d3f2; }
+.phase-atVoyager .dsn-pulse, .phase-received .dsn-pulse { transition: none; }
+
+/* ===== Build-a-Voyager assembly ===== */
+.assembly-stage { background: radial-gradient(120% 110% at 50% 10%, #0d1b44 0%, #070a1a 72%); border: 1px solid #27356b; border-radius: 20px; padding: 1rem; }
+.voyager-svg { width: 100%; max-width: 420px; display: block; margin: 0 auto; }
+.v-ghost { fill: #223157; stroke: #223157; stroke-width: 1.5; opacity: .35; }
+.v-part { animation: v-snap .45s cubic-bezier(.2,1.3,.5,1) both; }
+@keyframes v-snap { 0% { opacity: 0; transform: scale(.82); } 100% { opacity: 1; transform: scale(1); } }
+.v-part { transform-box: view-box; transform-origin: 210px 200px; }
+.assembly-count { text-align: center; color: #eaf0ff; margin-top: .4rem; }
+.assembly-count b { color: #ffd36b; }
+.assembly-key { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; margin-top: .5rem; }
+.assembly-key span { font-size: .76rem; color: #0a1228; background: #9fe6c0; border-radius: 999px; padding: .15rem .6rem; font-weight: 700; }
+
+/* ===== Deep-space light-time route ===== */
+.light-route { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .9rem; margin: 1rem 0; padding: 1rem; border: 1px solid #27356b; border-radius: 18px; background: #0b1330; }
+.light-end { display: flex; flex-direction: column; align-items: center; gap: .1rem; color: #eaf0ff; font-size: .9rem; }
+.light-end em { font-size: 1.9rem; font-style: normal; }
+.light-beam { position: relative; text-align: center; }
+.light-beam i { position: absolute; top: -10px; left: 0; right: 0; height: 3px; border-radius: 3px; background: linear-gradient(90deg, rgba(255,211,107,0), #ffd36b, rgba(255,211,107,0)); background-size: 40% 100%; background-repeat: no-repeat; animation: light-run 2.4s linear infinite; }
+.light-beam strong { display: block; color: #ffd36b; font-size: 1.1rem; }
+.light-beam small { color: #aab8e6; font-size: .76rem; }
+@keyframes light-run { 0% { background-position: -40% 0; } 100% { background-position: 140% 0; } }
+@media (max-width: 760px) { .dsn-stats { grid-template-columns: repeat(2, 1fr); } }
